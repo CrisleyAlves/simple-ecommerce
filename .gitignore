@@ -1,0 +1,16 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+API/.apt_generated
+API/.classpath
+API/.factorypath
+API/.project
+API/.settings
+API/.springBeans
+API/.sts4-cache
+API/target
+API/bin
+API/.mvn
+API/mvnw.cmd
+API/mvnw
