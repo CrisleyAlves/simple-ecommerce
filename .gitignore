@@ -14,3 +14,42 @@ API/bin
 API/.mvn
 API/mvnw.cmd
 API/mvnw
+
+# compiled output
+ADM/dist
+ADM/tmp
+ADM/out-tsc
+
+# dependencies
+ADM/node_modules
+ADM/src/environments
+
+# IDEs and editors
+ADM//.idea
+ADM/.project
+ADM/.classpath
+ADM/.c9/
+ADM/*.launch
+ADM/.settings/
+ADM/*.sublime-workspace
+
+# IDE - VSCode
+ADM/.vscode/*
+ADM/!.vscode/settings.json
+ADM/!.vscode/tasks.json
+ADM/!.vscode/launch.json
+ADM/!.vscode/extensions.json
+
+# misc
+ADM/.sass-cache
+ADM/connect.lock
+ADM/coverage
+ADM/libpeerconnection.log
+ADM/npm-debug.log
+ADM/yarn-error.log
+ADM/testem.log
+ADM/typings
+
+# System Files
+ADM/.DS_Store
+ADM/Thumbs.db
