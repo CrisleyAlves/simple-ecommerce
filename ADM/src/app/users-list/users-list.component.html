@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <!-- <app-danger-modal
+                        *ngIf="userToDelete"
+                        [data]="userToDelete"
+                        [action]="deleteUser"
+                        ></app-danger-modal> -->
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>
+          Users
+          <a routerLink="/users/insert" class="btn pull-right text-success">
+            <i class="nav-icon icon-plus"></i> New
+          </a>
+          <a class="btn pull-right text-primary">
+            <i class="fa fa-filter"></i> Filter
+          </a>
+        </div>
+        <div class="card-body">
+          <table class="table table-responsive-sm table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Admin</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                  <span *ngIf="user.admin" class="badge badge-success">Yes</span>
+                  <span *ngIf="!user.admin" class="badge badge-danger">No</span>
+                </td>
+                <td>
+                    <a [routerLink]="['/users/edit/', user.id]" class="text-primary font-weight-bold">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    &nbsp;
+                    <a (click)="deleteUser(user.id)" class="text-danger font-weight-bold cursor-pointer">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.col-->
+  </div>

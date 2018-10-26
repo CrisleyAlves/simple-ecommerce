@@ -1,0 +1,25 @@
+<div
+  *ngIf="showModal"
+  class="modal fade show" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block;">
+<div class="modal-dialog modal-danger" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title">Modal title</h4>
+<button (click)="handerlHideModal()" class="close" type="button" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">
+    <p> The data which has the following code is going to be deleted: </p>
+    <p>Id: {{data}} </p>
+    <p>Continue?</p>
+</div>
+<div class="modal-footer">
+<button (click)="handerlHideModal()" class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<button (click)="handlerConfirm()" class="btn btn-danger" type="button">Delete</button>
+</div>
+</div>
+
+</div>
+
+</div>

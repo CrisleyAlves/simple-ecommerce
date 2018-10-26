@@ -1,0 +1,56 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+      <img class="navbar-brand-full" src="./assets/images/logo.png" width="89" height="40" alt="CoreUI Logo">
+      <img class="navbar-brand-minimized" src="./assets/images/logo.png" width="50" height="30" alt="CoreUI Logo">
+    </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <img class="img-avatar" src="./assets/images/Crisley.jpg" alt="admin@bootstrapmaster.com">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header text-center">
+            <strong>Account</strong>
+          </div>
+          <a class="dropdown-item" href="#">
+            <i class="fa fa-user-o"></i> Name
+          </a>
+          <a class="dropdown-item" href="#">
+              <i class="fa fa-envelope"></i> Email
+            </a>
+
+          <div class="dropdown-header text-center">
+            <strong>Settings</strong>
+          </div>
+          <a class="dropdown-item" href="#">
+            <i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+      </li>
+    </ul>
+  </header>
+
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-item nav-dropdown">
+            <a routerLink="/users" routerLinkActive="active" class="nav-link nav-dropdown-toggle">
+              <i class="nav-icon icon-user"></i> Users
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+    <main class="main">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
