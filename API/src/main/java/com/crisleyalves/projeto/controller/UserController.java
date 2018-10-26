@@ -1,6 +1,7 @@
 package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import com.crisleyalves.projeto.model.Product;
 import com.crisleyalves.projeto.model.User;
 import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.repository.UserRepository;
+import com.crisleyalves.projeto.repository.UserRepositoryFilter;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller
@@ -36,8 +38,19 @@ public class UserController {
     public ResponseEntity<?> listAll(){		
 		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
-
 	
+	//Don't know if it's the best way to filter info, however, it reaches the goal.	
+	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> filter (@RequestBody UserRepositoryFilter filter){		
+		if(filter.getBirthday() == null) {
+			User user = this.userRepository.findByCpf(filter.getCpf());
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}else {
+			User user = this.userRepository.findByBirthday(filter.getBirthday());
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}
+    }
+
 	@RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> insert (@RequestBody User user){
 		User saved = this.userRepository.save(user);
@@ -70,7 +83,7 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> login(@RequestBody User user){
+    public ResponseEntity<?> adminLogin(@RequestBody User user){
 		User logged = this.userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
 		if(logged != null) {
 			return new ResponseEntity<>( logged, HttpStatus.OK);
@@ -78,5 +91,15 @@ public class UserController {
 			return new ResponseEntity<>( Collections.singletonMap("message", messages.getLoginError()), HttpStatus.NOT_FOUND);
 		}
     }
-
+	
+	@RequestMapping(value = "/userlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> login(@RequestBody User user){
+		System.out.println(user.getCpf() + ' ' + user.getBirthday());
+		User logged = this.userRepository.findByCpfAndBirthday(user.getCpf(), user.getBirthday());
+		if(logged != null) {
+			return new ResponseEntity<>( logged, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>( Collections.singletonMap("message", messages.getLoginError()), HttpStatus.NOT_FOUND);
+		}
+    }
 }
