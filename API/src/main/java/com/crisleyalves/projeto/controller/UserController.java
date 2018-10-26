@@ -1,6 +1,7 @@
 package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.crisleyalves.projeto.model.Product;
 import com.crisleyalves.projeto.model.User;
-import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.repository.UserRepository;
-import com.crisleyalves.projeto.repository.UserRepositoryFilter;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller
@@ -41,13 +38,13 @@ public class UserController {
 	
 	//Don't know if it's the best way to filter info, however, it reaches the goal.	
 	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> filter (@RequestBody UserRepositoryFilter filter){		
+    public ResponseEntity<?> filter (@RequestBody User filter){		
 		if(filter.getBirthday() == null) {
-			User user = this.userRepository.findByCpf(filter.getCpf());
-			return new ResponseEntity<>(user, HttpStatus.OK);
+			List<User> users = this.userRepository.findByCpf(filter.getCpf());
+			return new ResponseEntity<>(users, HttpStatus.OK);
 		}else {
-			User user = this.userRepository.findByBirthday(filter.getBirthday());
-			return new ResponseEntity<>(user, HttpStatus.OK);
+			List<User> users = this.userRepository.findByBirthday(filter.getBirthday());
+			return new ResponseEntity<>(users, HttpStatus.OK);
 		}
     }
 

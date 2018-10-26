@@ -1,6 +1,7 @@
 package com.crisleyalves.projeto.repository;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,10 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	User findByCpfAndBirthday(String cpf, Calendar birthday);
 	
 	//ADM USER - Filtering user by CPF
-	public User findByCpf( String cpf);
+	public List<User> findByCpf( String cpf);
 	
 	//ADM USER - Filtering user by BIRTHDAY
-	public User findByBirthday(Calendar birthday);
+	public List<User> findByBirthday(Calendar birthday);
 	
 
 	

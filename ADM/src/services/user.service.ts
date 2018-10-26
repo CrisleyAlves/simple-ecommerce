@@ -26,4 +26,9 @@ export class UserService{
     deleteUserById(userId){
       return this.http.delete(this._url + userId, {observe: 'response'});
     }
+
+    filter(object){
+      return this.http.post(this._url + 'filter', object, { observe: 'response' });
+    }
+    
 }

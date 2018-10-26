@@ -12,9 +12,30 @@
           <a routerLink="/users/insert" class="btn pull-right text-success">
             <i class="nav-icon icon-plus"></i> New
           </a>
-          <a class="btn pull-right text-primary">
-            <i class="fa fa-filter"></i> Filter
-          </a>
+              <form class="form-inline pull-right"
+                    [formGroup]="filterRequest"
+                    (ngSubmit)="applyFilter(filterRequest.getRawValue())">
+                  <div class="form-group row">
+                      <input
+                        [textMask]="{mask: cpfMask}"
+                        placeholder="CPF"
+                        class="form-control col-md-4 margin-filter pull-right"
+                        type="text"
+                        formControlName="cpf"
+                      />
+                    <input
+                        [textMask]="{mask: birthdayMask}"
+                        placeholder="Birthday"
+                        class="form-control col-md-4 pull-right"
+                        type="text"
+                        formControlName="birthday"
+                        />
+                    <button
+                         class="button-filter btn btn-sm btn-success pull-right" type="submit">
+                        <i class="fa fa-check"></i> Apply filter</button>
+                    
+                </div>
+            </form>
         </div>
         <div class="card-body">
           <table class="table table-responsive-sm table-bordered table-striped table-sm">
@@ -22,6 +43,8 @@
               <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Birthday</th>
+                <th>CPF</th>
                 <th>E-mail</th>
                 <th>Admin</th>
                 <th>Actions</th>
@@ -31,6 +54,8 @@
               <tr *ngFor="let user of users">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
+                <td>{{user.birthday}}</td>
+                <td>{{user.cpf}}</td>
                 <td>{{user.email}}</td>
                 <td>
                   <span *ngIf="user.admin" class="badge badge-success">Yes</span>
