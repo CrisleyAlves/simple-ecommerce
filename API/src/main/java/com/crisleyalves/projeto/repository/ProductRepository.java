@@ -9,7 +9,6 @@ import com.crisleyalves.projeto.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	
-	
 	@Query("select p from Product p where UPPER(p.name)  LIKE CONCAT('%',UPPER(?1),'%') and p.stock > 0")
 	public List<Product> findProductsByName (String name);
 	

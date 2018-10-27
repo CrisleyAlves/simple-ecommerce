@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crisleyalves.projeto.model.Order;
 import com.crisleyalves.projeto.model.Product;
+import com.crisleyalves.projeto.repository.OrderFilterModel;
 import com.crisleyalves.projeto.repository.OrderRepository;
 import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.util.Messages;
@@ -34,9 +35,20 @@ Messages messages;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> listAll(){
-		
+    public ResponseEntity<?> listAll(){		
 		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
+    }
+	
+	//Don't know if it's the best way to filter info, however, it reaches the goal.	
+	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> filter (@RequestBody OrderFilterModel filter){		
+		if(filter.getStatus() != 0 && filter.getStartDate() != null && filter.getEndDate() != null) {
+			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDatesAndStatus(filter.getStartDate(),  filter.getEndDate(), filter.getStatus()), HttpStatus.OK);
+		} else if(filter.getStatus() != 0) {
+			return new ResponseEntity<>(this.orderRepository.findByStatus(filter.getStatus()), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDates(filter.getStartDate(),  filter.getEndDate()), HttpStatus.OK);
+		}				
     }
 
 	
