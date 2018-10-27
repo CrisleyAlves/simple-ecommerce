@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { IUser } from '../../interfaces/users';
+import { IUser } from '../../../interfaces/users';
 import { UserService } from 'src/services/user.service';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { UserService } from 'src/services/user.service';
-import { DangerModalComponent } from '../shared/danger-modal/danger-modal.component';
+import { DangerModalComponent } from '../../shared/danger-modal/danger-modal.component';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { IUser } from 'src/interfaces/users';
 import * as moment from 'moment';

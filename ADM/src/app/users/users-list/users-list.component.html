@@ -54,7 +54,7 @@
               <tr *ngFor="let user of users">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
-                <td>{{user.birthday}}</td>
+                <td>{{user.birthday | date: 'yyyy/MM/dd' }}</td>
                 <td>{{user.cpf}}</td>
                 <td>{{user.email}}</td>
                 <td>

@@ -1,6 +1,7 @@
 package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,33 +16,57 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crisleyalves.projeto.model.Order;
 import com.crisleyalves.projeto.model.Product;
+import com.crisleyalves.projeto.model.User;
 import com.crisleyalves.projeto.repository.OrderRepository;
 import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller
-@RequestMapping("orders")
+@RequestMapping("products")
 public class ProductController {
 	
-	Messages messages;
+Messages messages;
 	
 	@Autowired
-	OrderRepository orderRepository;
+	ProductRepository productRepository;
 	
-	public ProductController(OrderRepository orderRepository) {
-		this.orderRepository= orderRepository;
+	public ProductController(ProductRepository productRepository) {
+		this.productRepository= productRepository;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> listAll(){
+		return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){		
+		return new ResponseEntity<>(this.productRepository.findById(id), HttpStatus.OK);
+    }
+	
+	//Don't know if it's the best way to filter info, however, it reaches the goal.	
+	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> filter (@RequestBody Product filter){
+		if(filter.getStock() == 0) {
+			System.out.println(0);
+			return new ResponseEntity<>(this.productRepository.findProductsByName(filter.getName()), HttpStatus.OK);
+		}else if(filter.getStock() == 1) {
+			System.out.println(1);
+			return new ResponseEntity<>(this.productRepository.findProductsInDanger(filter.getName()), HttpStatus.OK);			
+		}else if(filter.getStock() == 2 ) {
+			System.out.println(2);
+			return new ResponseEntity<>(this.productRepository.findProductsInWarning(filter.getName()), HttpStatus.OK);
+		}else {
+			System.out.println(3);
+			return new ResponseEntity<>(this.productRepository.findProductsInOk(filter.getName()), HttpStatus.OK);
+		}
 		
-		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
     }
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> insert (@RequestBody Order order){
-		Order saved = this.orderRepository.save(order);
+    public ResponseEntity<?> insert (@RequestBody Product product){
+		Product saved = this.productRepository.save(product);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -50,8 +75,8 @@ public class ProductController {
     }	
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> update (@RequestBody Order order){
-		Order saved = this.orderRepository.save(order);
+    public ResponseEntity<?> update (@RequestBody Product product){
+		Product saved = this.productRepository.save(product);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -61,8 +86,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
-		this.orderRepository.deleteById(id);
+		this.productRepository.deleteById(id);
 		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
     }
-
 }

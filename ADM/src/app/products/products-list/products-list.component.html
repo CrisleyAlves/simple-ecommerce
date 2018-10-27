@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <!-- <app-danger-modal
+                      *ngIf="userToDelete"
+                      [data]="userToDelete"
+                      [action]="deleteUser"
+                      ></app-danger-modal> -->
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i>
+        Products
+        <a routerLink="/products/insert" class="btn pull-right text-success">
+          <i class="nav-icon icon-plus"></i> New
+        </a>
+            <form class="form-inline pull-right"
+                  [formGroup]="filterRequest"
+                  (ngSubmit)="applyFilter(filterRequest.getRawValue())">
+                <div class="form-group row">
+                    <input
+                      placeholder="Name"
+                      class="form-control col-md-4 margin-filter pull-right"
+                      type="text"
+                      formControlName="name"
+                    />
+                    <select 
+                      class="form-control"
+                      formControlName="stock">
+                      <option value="0" selected>all</option>  
+                      <option value="1">danger</option>  
+                      <option value="2">warning</option>  
+                      <option value="3">ok</option>  
+                    </select>
+                  <button
+                       class="button-filter btn btn-sm btn-success" type="submit">
+                      <i class="fa fa-check"></i> Apply filter</button>
+                  
+              </div>
+          </form>
+      </div>
+      <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>{{product.id}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.price | number : '1.2-2' }}</td>
+              <td>
+                  {{product.stock}}
+                  &nbsp;
+                  <span *ngIf="product.stock < 10"
+                        [class.alert-danger]="product.stock < 10"
+                        class="badge badge-pill badge-danger">Danger</span>
+                  
+                  <span *ngIf="product.stock > 10 && product.stock < 50"
+                        [class.alert-warning]="product.stock > 10 && product.stock < 50"
+                        class="badge badge-pill badge-warning">Warning</span>
+                  
+                  <span 
+                        *ngIf="product.stock > 50"
+                        [class.alert-success]="product.stock > 50"
+                        class="badge badge-pill badge-success">OK</span>
+                  
+              </td>
+              <td>
+                  <a [routerLink]="['/products/edit/', product.id]" class="text-primary font-weight-bold">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  &nbsp;
+                  <a (click)="deleteProduct(product.id)" class="text-danger font-weight-bold cursor-pointer">
+                    <i class="fa fa-trash"></i>
+                  </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- /.col-->
+</div>

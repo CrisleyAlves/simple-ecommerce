@@ -14,32 +14,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.crisleyalves.projeto.model.Order;
 import com.crisleyalves.projeto.model.Product;
+import com.crisleyalves.projeto.repository.OrderRepository;
 import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller
-@RequestMapping("products")
+@RequestMapping("orders")
 public class OrderController {
 	
-	Messages messages;
+Messages messages;
 	
 	@Autowired
-	ProductRepository productRepository;
+	OrderRepository orderRepository;
 	
-	public OrderController(ProductRepository productRepository) {
-		this.productRepository= productRepository;
+	public OrderController(OrderRepository orderRepository) {
+		this.orderRepository= orderRepository;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> listAll(){
-		return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+		
+		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
     }
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> insert (@RequestBody Product product){
-		Product saved = this.productRepository.save(product);
+    public ResponseEntity<?> insert (@RequestBody Order order){
+		Order saved = this.orderRepository.save(order);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -48,8 +51,8 @@ public class OrderController {
     }	
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> update (@RequestBody Product product){
-		Product saved = this.productRepository.save(product);
+    public ResponseEntity<?> update (@RequestBody Order order){
+		Order saved = this.orderRepository.save(order);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -59,7 +62,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
-		this.productRepository.deleteById(id);
+		this.orderRepository.deleteById(id);
 		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
     }
 
