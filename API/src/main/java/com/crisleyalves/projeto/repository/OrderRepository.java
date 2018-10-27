@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.crisleyalves.projeto.model.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
+	
+	List<Order> findByUserCpf(String cpf);
 
 	List<Order> findByStatus(Integer status);
 	

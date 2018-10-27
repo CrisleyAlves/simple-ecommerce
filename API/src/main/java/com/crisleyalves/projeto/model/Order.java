@@ -42,10 +42,10 @@ public class Order implements Serializable{
     @NotNull
     private Calendar date;
 	
-	@Column(name = "form_payment", length = 10)
+	@Column(name = "form_payment", length = 10, updatable = false)
     private String formPayment;
 	
-	@Column(name = "total_price", columnDefinition = "decimal(10,2)")
+	@Column(name = "total_price", columnDefinition = "decimal(10,2)", updatable = false)
     @NotNull
     private Double totalPrice;
     

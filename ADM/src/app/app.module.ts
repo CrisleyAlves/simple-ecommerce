@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DangerModalComponent } from './shared/danger-modal/danger-modal.component';
 import { NotificationComponent } from './shared/notification/notification.component';
 import { ProductService } from 'src/services/products.service';
+import { OrderService } from 'src/services/orders.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProductService } from 'src/services/products.service';
   ],
   providers: [
     UserService,
-    ProductService
+    ProductService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

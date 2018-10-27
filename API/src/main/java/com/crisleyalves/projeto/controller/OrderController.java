@@ -39,14 +39,25 @@ Messages messages;
 		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
     }
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){		
+		return new ResponseEntity<>(this.orderRepository.findById(id), HttpStatus.OK);
+    }
+	
 	//Don't know if it's the best way to filter info, however, it reaches the goal.	
 	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> filter (@RequestBody OrderFilterModel filter){		
-		if(filter.getStatus() != 0 && filter.getStartDate() != null && filter.getEndDate() != null) {
+		if(filter.getCpf().length() == 11) {
+			System.out.println(0);
+			return new ResponseEntity<>(this.orderRepository.findByUserCpf(filter.getCpf()), HttpStatus.OK);
+		}else if(filter.getStatus() != 0 && filter.getStartDate() != null && filter.getEndDate() != null) {
+			System.out.println(1);
 			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDatesAndStatus(filter.getStartDate(),  filter.getEndDate(), filter.getStatus()), HttpStatus.OK);
 		} else if(filter.getStatus() != 0) {
+			System.out.println(2);
 			return new ResponseEntity<>(this.orderRepository.findByStatus(filter.getStatus()), HttpStatus.OK);
 		}else {
+			System.out.println(3);
 			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDates(filter.getStartDate(),  filter.getEndDate()), HttpStatus.OK);
 		}				
     }

@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <!-- <app-danger-modal
+                      *ngIf="userToDelete"
+                      [data]="userToDelete"
+                      [action]="deleteUser"
+                      ></app-danger-modal> -->
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i>
+        Orders
+        <a routerLink="/orders/insert" class="btn pull-right text-success">
+          <i class="nav-icon icon-plus"></i> New
+        </a>
+            <form class="form-inline pull-right"
+                  [formGroup]="filterRequest"
+                  (ngSubmit)="applyFilter(filterRequest.getRawValue())">
+                <div class="form-group row">
+                    <input
+                      [textMask]="{mask: cpfMask}"
+                      placeholder="CPF"
+                      class="form-control col-md-2 margin-filter"
+                      type="text"
+                      formControlName="cpf"
+                    />
+                    <input
+                      [textMask]="{mask: dateMask}"
+                      placeholder="start date"
+                      class="form-control col-md-2 margin-filter"
+                      type="text"
+                      formControlName="startDate"
+                    />
+                    <input
+                      [textMask]="{mask: dateMask}"
+                      placeholder="end date"
+                      class="form-control col-md-2 margin-filter"
+                      type="text"
+                      formControlName="endDate"
+                    />
+                    <select 
+                      class="form-control"
+                      formControlName="status">
+                      <option value="0">all</option>  
+                      <option value="1">Required</option>  
+                      <option value="2">Finalized</option>  
+                      <option value="3">Canceled</option>  
+                    </select>
+                  <button
+                       class="button-filter btn btn-sm btn-success" type="submit">
+                      <i class="fa fa-check"></i> Apply filter</button>
+                  
+              </div>
+          </form>
+      </div>
+      <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Items</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>{{order.id}}</td>
+              <td>{{order.date | date: 'yyyy/MM/dd' }}</td>
+              <td>{{order.totalPrice | number : '1.2-2' }}</td>
+              <td>
+                    <span
+                       *ngIf="order.status == 1"
+                       [ngClass]="{'badge badge-pill badge-primary' : order.status == 1}">Required</span>
+                    <span 
+                        *ngIf="order.status == 2"
+                        [ngClass]="{'badge badge-pill badge-success' : order.status == 2}">Finalized</span>
+                    <span 
+                        *ngIf="order.status == 3"
+                        [ngClass]="{'badge badge-pill badge-danger' : order.status == 3}">Canceled</span>
+              </td>
+              <td>{{order.orderItemList.length}}</td>
+              <td>
+                  <a [routerLink]="['/orders/edit/', order.id]" class="text-primary font-weight-bold">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- /.col-->
+</div>
