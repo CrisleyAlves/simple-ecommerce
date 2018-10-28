@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Order</strong>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal" [formGroup]="orderRequest" (ngSubmit)="submitForm(orderRequest.getRawValue())">
+          <div class="form-group row">
+
+            <div class="col-md-12">
+                <label class="col-form-label">ID</label>
+                <input type="text" class="form-control col-md-3" formControlName="id">
+            </div>
+
+            <div class="col-md-2">
+              <label class="col-form-label">CEP</label>
+              <input type="text" class="form-control" formControlName="cep">
+              <label class="col-form-label">Address</label>
+              <input type="text" class="form-control" formControlName="address">
+              <label class="col-form-label">Additional Address</label>
+              <input type="text" class="form-control" formControlName="additionalAddress">
+              <label class="col-form-label">City</label>
+              <input type="text" class="form-control" formControlName="city">
+              <label class="col-form-label">Neighborhood</label>
+              <input type="text" class="form-control" formControlName="neightborhood">
+            </div>
+            <div class="col-md-2">
+              <label class="col-form-label">DATE</label>
+              <input type="text" class="form-control" formControlName="date">
+              <label class="col-form-label">Payment Form</label>
+              <input type="text" class="form-control" formControlName="formPayment">
+            </div>
+            <div class="col-md-2" formGroupName="user">
+                <label class="col-form-label">Id</label>
+                <input type="text" class="form-control" formControlName="id">
+                <label class="col-form-label">Name</label>
+                <input type="text" class="form-control" formControlName="name">
+                <label class="col-form-label">E-mail</label>
+                <input type="text" class="form-control" formControlName="email">
+                <label class="col-form-label">Cellphone</label>
+                <input type="text" class="form-control" formControlName="cellphone">
+            </div>
+            <div class="col-md-6">
+              <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>title</th>
+                    <th>unity price</th>
+                    <th>quantity</th>
+                    <th>price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of orderRequest.controls.orderItemList.value">
+                    <td><img [src]="item.product.photo" title="" alt="" width="50" height="50" /></td>
+                    <td>{{item.product.name}}</td>
+                    <td>{{item.unityPrice}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.totalPrice}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <div class="col-md-12 total-price">
+                <label class="col-form-label">Status</label>
+                <select class="form-control col-md-3 select-status" formControlName="status">
+                  <option value="1">Required</option>
+                  <option value="2">Finalized</option>
+                  <option value="3">Canceled</option>
+                </select>
+              </div>
+
+              <div class="col-md-12 total-price">
+                <label class="col-form-label">Total Price</label>
+                <input type="text" class="col-md-3 form-control total-price-input" formControlName="totalPrice">
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <app-notification *ngIf="showNotification"></app-notification>
+              <div *ngIf="!showNotification">
+                <button class="btn btn-sm btn-success pull-right" type="submit" [disabled]="orderRequest.invalid">
+                  <i class="fa fa-check"></i> Submit</button>
+
+                <a routerLink="/orders" class="btn btn-sm btn-danger pull-right cancel" type="reset">
+                  <i class="fa fa-arrow-left"></i> Cancel</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>

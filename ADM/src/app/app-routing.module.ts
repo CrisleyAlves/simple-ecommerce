@@ -8,6 +8,7 @@ import { ProductsListComponent } from './products/products-list/products-list.co
 import { ProductsInsertComponent } from './products/products-insert/products-insert.component';
 import { ProductsEditComponent } from './products/products-edit/products-edit.component';
 import { OrdersListComponent } from './orders/orders-list/orders-list.component';
+import { OrdersEditComponent } from './orders/orders-edit/orders-edit.component';
 
 const appRoutes: Routes = [
   { path: 'users', component: UsersListComponent},
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'products/insert', component: ProductsInsertComponent},
   { path: 'products/edit/:id', component: ProductsEditComponent},
   { path: 'orders', component: OrdersListComponent},
+  { path: 'orders/edit/:id', component: OrdersEditComponent},
 ];
 
 @NgModule({
@@ -27,5 +29,5 @@ export class AppRoutingModule{ }
 export const routingComponents = [ 
   UsersListComponent, UsersInsertComponent, UsersEditComponent,
   ProductsListComponent, ProductsInsertComponent, ProductsEditComponent,
-  OrdersListComponent
+  OrdersListComponent, OrdersEditComponent
  ]

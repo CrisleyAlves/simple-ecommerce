@@ -2,23 +2,19 @@ package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crisleyalves.projeto.model.Order;
-import com.crisleyalves.projeto.model.Product;
 import com.crisleyalves.projeto.repository.OrderFilterModel;
 import com.crisleyalves.projeto.repository.OrderRepository;
-import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller

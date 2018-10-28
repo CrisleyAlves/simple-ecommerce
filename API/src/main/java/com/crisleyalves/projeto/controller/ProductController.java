@@ -1,23 +1,18 @@
 package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.crisleyalves.projeto.model.Order;
 import com.crisleyalves.projeto.model.Product;
-import com.crisleyalves.projeto.model.User;
-import com.crisleyalves.projeto.repository.OrderRepository;
 import com.crisleyalves.projeto.repository.ProductRepository;
 import com.crisleyalves.projeto.util.Messages;
 
@@ -48,16 +43,12 @@ Messages messages;
 	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> filter (@RequestBody Product filter){
 		if(filter.getStock() == 0) {
-			System.out.println(0);
 			return new ResponseEntity<>(this.productRepository.findProductsByName(filter.getName()), HttpStatus.OK);
 		}else if(filter.getStock() == 1) {
-			System.out.println(1);
 			return new ResponseEntity<>(this.productRepository.findProductsInDanger(filter.getName()), HttpStatus.OK);			
 		}else if(filter.getStock() == 2 ) {
-			System.out.println(2);
 			return new ResponseEntity<>(this.productRepository.findProductsInWarning(filter.getName()), HttpStatus.OK);
 		}else {
-			System.out.println(3);
 			return new ResponseEntity<>(this.productRepository.findProductsInOk(filter.getName()), HttpStatus.OK);
 		}
 		
