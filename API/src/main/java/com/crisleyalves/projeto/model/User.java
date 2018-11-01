@@ -1,13 +1,17 @@
 package com.crisleyalves.projeto.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +21,7 @@ import javax.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -50,14 +55,25 @@ public class User implements Serializable{
     @Column(name = "password")
     private String password = null;
     
-    @Column(name = "cellphone", length = 13)
-    private String cellphone;
+    @Column(name = "cell_phone", length = 13)
+    private String cellPhone;
+    
+    @Column(name = "landline_number", length = 13)
+    private String landlineNumber;
     
     @Column(name = "photo", updatable = false)
     private String photo = null;
     
     @Column(name = "admin")
     private Boolean admin = false;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    List<Address> addressList = new ArrayList<>();
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    List<Wish> wishList = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -107,12 +123,20 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public String getCellphone() {
-		return cellphone;
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
+	}
+
+	public String getLandlineNumber() {
+		return landlineNumber;
+	}
+
+	public void setLandlineNumber(String landlineNumber) {
+		this.landlineNumber = landlineNumber;
 	}
 
 	public Boolean getAdmin() {
@@ -129,6 +153,22 @@ public class User implements Serializable{
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
+
+	public List<Wish> getWishList() {
+		return wishList;
+	}
+
+	public void setWishList(List<Wish> wishList) {
+		this.wishList = wishList;
 	}
 
 	@Override

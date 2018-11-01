@@ -42,33 +42,18 @@ public class Order implements Serializable{
     @NotNull
     private Calendar date;
 	
-	@Column(name = "form_payment", length = 10, updatable = false)
-    private String formPayment;
-	
 	@Column(name = "total_price", columnDefinition = "decimal(10,2)", updatable = false)
     @NotNull
     private Double totalPrice;
     
-    @Column( name = "cep", length = 8 )
-    private String cep;
-    
-    @Column( name = "address" )
-    private String address;
-    
-    @Column( name = "additional_address" )
-    private String additionalAddress;
-    
-    @Column( name = "city", length = 100 )
-    private String city;
-    
-    @Column( name = "neightborhood", length = 100 )
-    private String neightborhood;
-    
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     
-    @Column( name = "status", length = 100 )
-    private Integer status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Address address;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Status status;
     
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     @JoinColumn(name = "payment", updatable = false)
@@ -94,14 +79,6 @@ public class Order implements Serializable{
 		this.date = date;
 	}
 
-	public String getFormPayment() {
-		return formPayment;
-	}
-
-	public void setFormPayment(String formPayment) {
-		this.formPayment = formPayment;
-	}
-
 	public Double getTotalPrice() {
 		return totalPrice;
 	}
@@ -110,44 +87,12 @@ public class Order implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public String getAdditionalAddress() {
-		return additionalAddress;
-	}
-
-	public void setAdditionalAddress(String additionalAddress) {
-		this.additionalAddress = additionalAddress;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getNeightborhood() {
-		return neightborhood;
-	}
-
-	public void setNeightborhood(String neightborhood) {
-		this.neightborhood = neightborhood;
 	}
 
 	public User getUser() {
@@ -172,13 +117,13 @@ public class Order implements Serializable{
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
-	}
+	}	
 
-	public Integer getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 

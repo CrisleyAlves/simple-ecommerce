@@ -53,3 +53,41 @@ ADM/typings
 # System Files
 ADM/.DS_Store
 ADM/Thumbs.db
+
+#APP
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+APP/*~
+APP/*.sw[mnpcod]
+APP/*.log
+APP/*.tmp
+APP/*.tmp.*
+APP/log.txt
+APP/*.sublime-project
+APP/*.sublime-workspace
+APP/.vscode/
+APP/npm-debug.log*
+
+APP/.idea/
+APP/.ionic/
+APP/.sourcemaps/
+APP/.sass-cache/
+APP/.tmp/
+APP/.versions/
+APP/coverage/
+APP/www/
+APP/node_modules/
+APP/src/environments
+APP/tmp/
+APP/temp/
+APP/platforms/
+APP/plugins/
+APP/plugins/android.json
+APP/plugins/ios.json
+APP/$RECYCLE.BIN/
+
+APP/.DS_Store
+APP/Thumbs.db
+APP/UserInterfaceState.xcuserstate
+APP/.gitignore

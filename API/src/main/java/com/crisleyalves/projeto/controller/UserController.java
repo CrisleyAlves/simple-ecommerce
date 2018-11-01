@@ -1,9 +1,9 @@
 package com.crisleyalves.projeto.controller;
 
 import java.util.Collections;
-
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,8 +32,8 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> listAll(){		
-		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> listAll(Pageable pageable){		
+		return new ResponseEntity<>(userRepository.findAll(pageable), HttpStatus.OK);
     }
 	
 	//Don't know if it's the best way to filter info, however, it reaches the goal.	
@@ -91,7 +91,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> login(@RequestBody User user){
-		System.out.println(user.getCpf() + ' ' + user.getBirthday());
 		User logged = this.userRepository.findByCpfAndBirthday(user.getCpf(), user.getBirthday());
 		if(logged != null) {
 			return new ResponseEntity<>( logged, HttpStatus.OK);

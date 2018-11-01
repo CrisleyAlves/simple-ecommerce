@@ -1,8 +1,8 @@
 package com.crisleyalves.projeto.controller;
 
+import org.springframework.data.domain.Pageable;
 import java.util.Collections;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,52 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.crisleyalves.projeto.model.Product;
-import com.crisleyalves.projeto.repository.ProductRepository;
+import com.crisleyalves.projeto.model.Category;
+import com.crisleyalves.projeto.repository.CategoryRepository;
 import com.crisleyalves.projeto.util.Messages;
 
 @Controller
-@RequestMapping("products")
-public class ProductController {
+@RequestMapping("categories")
+public class CategoryController {
 	
 Messages messages;
 	
 	@Autowired
-	ProductRepository productRepository;
+	CategoryRepository categoryRepository;
 	
-	public ProductController(ProductRepository productRepository) {
-		this.productRepository= productRepository;
+	public CategoryController(CategoryRepository categoryRepository) {
+		this.categoryRepository = categoryRepository;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> listAll(Pageable pageable){
-		return new ResponseEntity<>(productRepository.findAll(pageable), HttpStatus.OK);
+		return new ResponseEntity<>(categoryRepository.findAll(pageable), HttpStatus.OK);
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable("id") Long id){		
-		return new ResponseEntity<>(this.productRepository.findById(id), HttpStatus.OK);
+		return new ResponseEntity<>(this.categoryRepository.findById(id), HttpStatus.OK);
     }
-	
-	//Don't know if it's the best way to filter info, however, it reaches the goal.	
-	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> filter (@RequestBody Product filter){
-		if(filter.getStock() == 0) {
-			return new ResponseEntity<>(this.productRepository.findProductsByName(filter.getName()), HttpStatus.OK);
-		}else if(filter.getStock() == 1) {
-			return new ResponseEntity<>(this.productRepository.findProductsInDanger(filter.getName()), HttpStatus.OK);			
-		}else if(filter.getStock() == 2 ) {
-			return new ResponseEntity<>(this.productRepository.findProductsInWarning(filter.getName()), HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(this.productRepository.findProductsInOk(filter.getName()), HttpStatus.OK);
-		}
-		
-    }
-
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> insert (@RequestBody Product product){
-		Product saved = this.productRepository.save(product);
+    public ResponseEntity<?> insert (@RequestBody Category category){
+		Category saved = this.categoryRepository.save(category);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -67,8 +51,8 @@ Messages messages;
     }	
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> update (@RequestBody Product product){
-		Product saved = this.productRepository.save(product);
+    public ResponseEntity<?> update (@RequestBody Category category){
+		Category saved = this.categoryRepository.save(category);
 		if(saved == null) {
 			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
@@ -78,7 +62,7 @@ Messages messages;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
-		this.productRepository.deleteById(id);
+		this.categoryRepository.deleteById(id);
 		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
     }
 }

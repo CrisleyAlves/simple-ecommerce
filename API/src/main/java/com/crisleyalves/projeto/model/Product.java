@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,6 +36,9 @@ public class Product implements Serializable{
     
     @Column(name = "stock")
     private Integer stock;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
 
 	public Long getId() {
 		return id;
@@ -81,6 +86,14 @@ public class Product implements Serializable{
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override
