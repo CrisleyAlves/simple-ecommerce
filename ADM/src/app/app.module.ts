@@ -7,6 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
+import { NgxViacepModule } from '@brunoc/ngx-viacep';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,7 +33,8 @@ import { OrderService } from 'src/services/orders.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TextMaskModule
+    TextMaskModule,
+    NgxViacepModule
   ],
   providers: [
     UserService,

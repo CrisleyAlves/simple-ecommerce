@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -44,8 +49,8 @@ public class User implements Serializable{
     @Email(message = "INVALID EMAIL")
     private String email;
     
-    @Column(name = "cpf", length = 11, unique = true)
-    @CPF(message = "INVALID CPF")
+    @Column(name = "cpf", length = 11)
+//    @CPF(message = "INVALID CPF")
     private String cpf;
     
     @Column(name = "birthday")
@@ -67,12 +72,12 @@ public class User implements Serializable{
     @Column(name = "admin")
     private Boolean admin = false;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    List<Address> addressList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName="id")
+    private List<Address> addressList;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName="id")
     List<Wish> wishList = new ArrayList<>();
 
 	public Long getId() {
@@ -153,6 +158,10 @@ public class User implements Serializable{
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}	
+
+	public List<Wish> getWishList() {
+		return wishList;
 	}
 
 	public List<Address> getAddressList() {
@@ -161,10 +170,6 @@ public class User implements Serializable{
 
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
-	}
-
-	public List<Wish> getWishList() {
-		return wishList;
 	}
 
 	public void setWishList(List<Wish> wishList) {

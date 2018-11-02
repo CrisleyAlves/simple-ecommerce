@@ -62,9 +62,9 @@ Messages messages;
     public ResponseEntity<?> insert (@RequestBody Order order){
 		Order saved = this.orderRepository.save(order);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertSuccess()), HttpStatus.OK);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertSuccess()), HttpStatus.OK);
 		}
     }	
 	
@@ -72,16 +72,16 @@ Messages messages;
     public ResponseEntity<?> update (@RequestBody Order order){
 		Order saved = this.orderRepository.save(order);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateSuccess()), HttpStatus.OK);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateSuccess()), HttpStatus.OK);
 		}
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
 		this.orderRepository.deleteById(id);
-		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
+		return new ResponseEntity<>(Collections.singletonMap("message", Messages.getDeleteSuccess()), HttpStatus.OK);
     }
 
 }

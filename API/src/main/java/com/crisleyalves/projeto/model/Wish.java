@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,16 +28,17 @@ public class Wish implements Serializable{
 	@Column(name = "id")
     private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private User user;
-	
 	@ManyToOne
+	@JoinColumn(name = "product_id")
 	private Product product;
 	
 	@Column(name = "date_added", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Calendar date_added;
+	
+	@ManyToOne
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -44,14 +46,6 @@ public class Wish implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Product getProduct() {
@@ -68,6 +62,14 @@ public class Wish implements Serializable{
 
 	public void setDate_added(Calendar date_added) {
 		this.date_added = date_added;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

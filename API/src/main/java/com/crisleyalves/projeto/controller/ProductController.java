@@ -60,9 +60,9 @@ Messages messages;
     public ResponseEntity<?> insert (@RequestBody Product product){
 		Product saved = this.productRepository.save(product);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertSuccess()), HttpStatus.OK);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertSuccess()), HttpStatus.OK);
 		}
     }	
 	
@@ -70,15 +70,15 @@ Messages messages;
     public ResponseEntity<?> update (@RequestBody Product product){
 		Product saved = this.productRepository.save(product);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateSuccess()), HttpStatus.OK);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateSuccess()), HttpStatus.OK);
 		}
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
 		this.productRepository.deleteById(id);
-		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
+		return new ResponseEntity<>(Collections.singletonMap("message", Messages.getDeleteSuccess()), HttpStatus.OK);
     }
 }

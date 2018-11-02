@@ -34,7 +34,10 @@ export class UsersListComponent implements OnInit {
   }
 
   getAllUsers(){
-    this._userService.getUsers().subscribe(data => this.users = data);
+    this._userService.getUsers().subscribe( (res) => {
+        this.users = res.content;
+      }
+    );
   }
 
   applyFilter(request: IUser){

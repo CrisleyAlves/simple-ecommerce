@@ -52,9 +52,9 @@ public class UserController {
     public ResponseEntity<?> insert (@RequestBody User user){
 		User saved = this.userRepository.save(user);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getInsertSuccess()), HttpStatus.CREATED);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getInsertSuccess()), HttpStatus.CREATED);
 		}
     }	
 	
@@ -67,16 +67,16 @@ public class UserController {
     public ResponseEntity<?> update (@RequestBody User user){
 		User saved = this.userRepository.save(user);
 		if(saved == null) {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateError()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateError()), HttpStatus.BAD_REQUEST);
 		}else {
-			return new ResponseEntity<>(Collections.singletonMap("message", messages.getUpdateSuccess()), HttpStatus.OK);
+			return new ResponseEntity<>(Collections.singletonMap("message", Messages.getUpdateSuccess()), HttpStatus.OK);
 		}
     }
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> excluir(@PathVariable("id") Long id){
 		this.userRepository.deleteById(id);
-		return new ResponseEntity<>(Collections.singletonMap("message", messages.getDeleteSuccess()), HttpStatus.OK);
+		return new ResponseEntity<>(Collections.singletonMap("message", Messages.getDeleteSuccess()), HttpStatus.OK);
     }
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -85,7 +85,7 @@ public class UserController {
 		if(logged != null) {
 			return new ResponseEntity<>( logged, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>( Collections.singletonMap("message", messages.getLoginError()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>( Collections.singletonMap("message", Messages.getLoginError()), HttpStatus.NOT_FOUND);
 		}
     }
 	
@@ -95,7 +95,7 @@ public class UserController {
 		if(logged != null) {
 			return new ResponseEntity<>( logged, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>( Collections.singletonMap("message", messages.getLoginError()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>( Collections.singletonMap("message", Messages.getLoginError()), HttpStatus.NOT_FOUND);
 		}
     }
 }

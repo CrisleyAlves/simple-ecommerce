@@ -5,7 +5,10 @@ export interface IUser {
     cpf: string,
     birthday: string,
     password: string,
-    cellphone: string,
+    cellPhone: string,
+    landlineNumber: string,
     photo: string,
-    admin: boolean
+    admin: boolean,
+    addressList: any;
+    wishList: any;
 }

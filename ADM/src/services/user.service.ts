@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser } from '../interfaces/users';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { IResponse } from 'src/interfaces/response';
+import { IUser } from 'src/interfaces/users';
 
 @Injectable()
 export class UserService{
@@ -11,16 +12,20 @@ export class UserService{
 
     constructor(private http: HttpClient){}
 
-    getUsers(): Observable<IUser[]>{
-        return this.http.get<IUser[]>(this._url);
+    getUsers(): Observable<IResponse>{
+        return this.http.get<IResponse>(this._url);
     }
 
     insertUser(object){
       return this.http.post(this._url, object, {observe: 'response'});
     }
 
+    updateUser(object){
+      return this.http.put(this._url, object, {observe: 'response'});
+    }
+
     getUserById(userId){
-      return this.http.get(this._url + userId, {observe: 'response'});
+      return this.http.get<IUser>(this._url + userId, {observe: 'response'});
     }
 
     deleteUserById(userId){

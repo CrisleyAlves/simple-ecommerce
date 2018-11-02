@@ -1,3 +1,25 @@
 .cancel{
   margin-right: 1%;
 }
+
+.buttons{
+  margin-top: 2%;
+}
+
+.phone{
+  background-color: rgba(#e6e6e6, 0.8);
+  margin: 2%;
+}
+
+.find{
+  position: absolute;
+  right: -30%;
+  top: 0;
+}
+
+.remove{
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+}
