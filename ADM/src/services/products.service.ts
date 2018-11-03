@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IProduct } from '../interfaces/products';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { IResponse } from 'src/interfaces/response';
+import { IProduct } from 'src/interfaces/products';
 
 @Injectable()
 export class ProductService{
@@ -11,8 +12,8 @@ export class ProductService{
 
     constructor(private http: HttpClient){}
 
-    getProducts(): Observable<IProduct[]>{
-        return this.http.get<IProduct[]>(this._url);
+    getAllProducts(): Observable<IResponse>{
+        return this.http.get<IResponse>(this._url);
     }
 
     insertProduct(object){
@@ -24,7 +25,7 @@ export class ProductService{
     }
 
     getProductById(productId){
-      return this.http.get(this._url + productId, {observe: 'response'});
+      return this.http.get<IProduct>(this._url + productId, {observe: 'response'});
     }
 
     deleteProductById(productId){

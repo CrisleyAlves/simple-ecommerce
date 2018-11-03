@@ -6,6 +6,7 @@ import { ProductService } from 'src/services/products.service';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/interfaces/products';
 import { finalize } from 'rxjs/operators';
+import { CategoryService } from 'src/services/category.service';
 
 @Component({
   selector: 'app-products-insert',
@@ -17,25 +18,33 @@ export class ProductsInsertComponent implements OnInit {
   private productRequest: FormGroup;
   private selectedFile = null;
 
-  public showNotification = false;
-
   //  firebase
   uploadPercent: Observable<number>;
+
+  categories: any;
 
   constructor(  formBuilder: FormBuilder,
                 private storage: AngularFireStorage,
                 private productService: ProductService,
+                private _categoryService: CategoryService,
                 private router: Router) {
     this.productRequest = formBuilder.group({
       'name': new FormControl(null, [Validators.required]),
       'description': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
       'stock': new FormControl(null, [Validators.required]),
-      'photo': new FormControl(null, [Validators.required])
+      'photo': new FormControl(null, [Validators.required]),
+      'category': formBuilder.group({
+        'id': ''
+      }),
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._categoryService.getAllCategories().subscribe((res) => {  
+      this.categories = res.content;
+    })
+  }
 
   onFileSelected(event){
       this.selectedFile = event.target.files[0];
@@ -47,7 +56,6 @@ export class ProductsInsertComponent implements OnInit {
   submitForm(request: IProduct) {
 
     const task = this.storage.upload("products/"+request.photo, this.selectedFile);
-
     this.uploadPercent = task.percentageChanges();
 
     // uploading file
@@ -57,7 +65,7 @@ export class ProductsInsertComponent implements OnInit {
         //call function responsable for saving the data on the bd
         finalize(() => this.insertProduct(request) )
      )
-    .subscribe()
+    .subscribe();
   }
 
   insertProduct(request){
@@ -66,10 +74,7 @@ export class ProductsInsertComponent implements OnInit {
     .subscribe(
       res => {
         // console.log(res);
-        this.showNotification = true;
-        setTimeout(() => {
           this.router.navigate(['/products']);
-        }, 2000);
       },
       err => {
         // console.log(err);

@@ -6,6 +6,7 @@ import { ProductService } from 'src/services/products.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IProduct } from 'src/interfaces/products';
 import { finalize } from 'rxjs/operators';
+import { CategoryService } from 'src/services/category.service';
 
 @Component({
   selector: 'app-products-edit',
@@ -17,8 +18,9 @@ export class ProductsEditComponent implements OnInit {
   private productRequest: FormGroup;
   private selectedFile = null;
 
-  public showNotification = false;
   public currentImageWillBeDeleted = false;
+
+  categories: any;
 
   //  firebase
   uploadPercent: Observable<number>;
@@ -28,6 +30,7 @@ export class ProductsEditComponent implements OnInit {
 
   constructor(  formBuilder: FormBuilder,
                 private storage: AngularFireStorage,
+                private _categoryService: CategoryService,
                 private productService: ProductService,
                 private router: Router,
                 private route: ActivatedRoute) {
@@ -37,7 +40,10 @@ export class ProductsEditComponent implements OnInit {
       'description': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
       'stock': new FormControl(null, [Validators.required]),
-      'photo': new FormControl(null, [Validators.required])
+      'photo': new FormControl(null, [Validators.required]),
+      'category': formBuilder.group({
+        'id': ''
+      }),
     });
   }
 
@@ -51,6 +57,11 @@ export class ProductsEditComponent implements OnInit {
           this.productUrl = ref.getDownloadURL();
       }
     });
+
+    this._categoryService.getAllCategories().subscribe((res) => {  
+      this.categories = res.content;
+    })
+
   }
 
   onFileSelected(event){
@@ -92,10 +103,7 @@ export class ProductsEditComponent implements OnInit {
     .subscribe(
       res => {
         // console.log(res);
-        this.showNotification = true;
-        setTimeout(() => {
-          this.router.navigate(['/products']);
-        }, 2000);
+        this.router.navigate(['/products']);
       },
       err => {
         // console.log(err);

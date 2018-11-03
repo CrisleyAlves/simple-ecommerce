@@ -54,6 +54,18 @@
                                 formControlName="stock" />
                       </div>
                   </div>
+
+                  <div class="form-group row">
+                        <label class="col-md-1 col-form-label">Category</label>
+                        <div class="col-md-3" formGroupName="category">
+                            <select class="form-control" formControlName="id">
+                                <option
+                                    *ngFor="let category of categories" 
+                                    [value]="category.id"
+                                        >{{category.description}}</option>
+                            </select>
+                        </div>
+                    </div>
   
                   <div class="form-group row">
                       <label class="col-md-1 col-form-label">Photo</label>

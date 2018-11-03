@@ -27,7 +27,9 @@ export class ProductsListComponent implements OnInit {
   }
 
   getAllProducts(){
-    this._productService.getProducts().subscribe(data => this.products = data);
+    this._productService.getAllProducts().subscribe( (res) => {
+        this.products = res.content;
+    });
   }
 
   applyFilter(request: IProduct){
