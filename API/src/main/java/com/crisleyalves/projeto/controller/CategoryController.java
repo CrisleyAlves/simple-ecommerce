@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crisleyalves.projeto.model.Category;
+import com.crisleyalves.projeto.model.Product;
 import com.crisleyalves.projeto.repository.CategoryRepository;
 import com.crisleyalves.projeto.util.Messages;
 
@@ -38,6 +39,14 @@ Messages messages;
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable("id") Long id){		
 		return new ResponseEntity<>(this.categoryRepository.findById(id), HttpStatus.OK);
+    }
+	
+	//Don't know if it's the best way to filter info, however, it reaches the goal.	
+	@RequestMapping( value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> filter (@RequestBody Category filter){
+		
+		return new ResponseEntity<>(this.categoryRepository.findByDescriptionContainingIgnoreCase(filter.getDescription()), HttpStatus.OK);
+		
     }
 	
 	@RequestMapping(method = RequestMethod.POST)

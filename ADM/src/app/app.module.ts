@@ -17,6 +17,7 @@ import { DangerModalComponent } from './shared/danger-modal/danger-modal.compone
 import { NotificationComponent } from './shared/notification/notification.component';
 import { ProductService } from 'src/services/products.service';
 import { OrderService } from 'src/services/orders.service';
+import { CategoryService } from 'src/services/category.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { OrderService } from 'src/services/orders.service';
   providers: [
     UserService,
     ProductService,
-    OrderService
+    OrderService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })
