@@ -30,7 +30,9 @@ export class OrdersListComponent implements OnInit {
   }
 
   getAllOrders(){
-    this._orderService.getOrders().subscribe(data => this.orders = data);
+    this._orderService.getOrders().subscribe( (res) =>{
+      this.orders = res.content
+    })
   }
 
   applyFilter(request){

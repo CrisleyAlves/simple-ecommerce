@@ -1,7 +1,6 @@
 export interface IOrder {
     id: number,
     date: string, 
-    formPayment: string,
     totalPrice: string,
     cep: string,
     address: string,
@@ -9,7 +8,7 @@ export interface IOrder {
     city: string,
     neightborhood: string,
     user: any,
-    status: number,
-    payment: string,
+    status: any,
+    payment: any,
     orderItemList: any
 }

@@ -24,19 +24,20 @@ export class OrdersEditComponent implements OnInit {
     this.orderRequest = formBuilder.group({
       'id': new FormControl( { value: '', disabled: true}, [Validators.required]),
       'date': new FormControl({ value: '', disabled: true}, [Validators.required]),
-      'formPayment': new FormControl({ value: '', disabled: true}, [Validators.required]),
       'totalPrice': new FormControl({ value: '', disabled: true}, [Validators.required]),
       'cep': new FormControl({ value: '', disabled: true}, [Validators.required]),
       'address': new FormControl({ value: '', disabled: true}, [Validators.required]),
       'additionalAddress': new FormControl({ value: '', disabled: true}, [Validators.required]),
       'city': new FormControl({ value: '', disabled: true}, [Validators.required]),
-      'neightborhood': new FormControl({ value: '', disabled: true}, [Validators.required]),
-      'status': new FormControl(null, [Validators.required]),
+      'neighborhood': new FormControl({ value: '', disabled: true}, [Validators.required]),
+      'status': formBuilder.group({
+        'id': [{ value: ''}]
+      }),
       'user': formBuilder.group({
         'id': [{ value: '', disabled: true }],
         'name': [{ value: '', disabled: true }],
         'email': [{ value: '', disabled: true }],
-        'cellphone': [{ value: '', disabled: true }]
+        'cellPhone': [{ value: '', disabled: true }]
       }),
       'orderItemList': new FormControl(null, [Validators.required])
     });

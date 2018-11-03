@@ -13,12 +13,12 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Long>
 	
 	List<Order> findByUserCpf(String cpf);
 
-	List<Order> findByStatus(Integer status);
+	List<Order> findByStatusId(Long status);
 	
 	@Query("select o from Order o where o.date >= ?1 and o.date <= ?2")
 	List<Order> findBetweenTwoDates(Calendar startDate, Calendar endDate);
 	
 	@Query("select o from Order o where o.date >= ?1 and o.date <= ?2 and o.status = ?3")
-	List<Order> findBetweenTwoDatesAndStatus(Calendar startDate, Calendar endDate, Integer status);
+	List<Order> findBetweenTwoDatesAndStatus(Calendar startDate, Calendar endDate, Long status);
 	
 }

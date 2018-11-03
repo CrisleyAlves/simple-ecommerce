@@ -71,14 +71,14 @@
               <td>{{order.totalPrice | number : '1.2-2' }}</td>
               <td>
                     <span
-                       *ngIf="order.status == 1"
-                       [ngClass]="{'badge badge-pill badge-primary' : order.status == 1}">Required</span>
+                       *ngIf="order.status.id == 1"
+                       [ngClass]="{'badge badge-pill badge-primary' : order.status.id == 1}">Required</span>
                     <span 
-                        *ngIf="order.status == 2"
-                        [ngClass]="{'badge badge-pill badge-success' : order.status == 2}">Finalized</span>
+                        *ngIf="order.status.id == 2"
+                        [ngClass]="{'badge badge-pill badge-success' : order.status.id == 2}">Finalized</span>
                     <span 
-                        *ngIf="order.status == 3"
-                        [ngClass]="{'badge badge-pill badge-danger' : order.status == 3}">Canceled</span>
+                        *ngIf="order.status.id == 3"
+                        [ngClass]="{'badge badge-pill badge-danger' : order.status.id == 3}">Canceled</span>
               </td>
               <td>{{order.orderItemList.length}}</td>
               <td>

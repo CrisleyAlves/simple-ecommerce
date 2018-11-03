@@ -4,16 +4,16 @@ import java.util.Calendar;
 
 public class OrderFilterModel {
 	
-	private Integer status;
+	private Long status;
 	private String cpf;
 	private Calendar startDate;
 	private Calendar endDate;
 	
-	public Integer getStatus() {
+	public Long getStatus() {
 		return status;
 	}
 	
-	public void setStatus(Integer status) {
+	public void setStatus(Long status) {
 		this.status = status;
 	}
 	

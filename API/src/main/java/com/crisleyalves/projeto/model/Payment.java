@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,8 +33,7 @@ public class Payment implements Serializable{
     @Column(name = "token", updatable = false)
     private String token;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
 	public Long getId() {

@@ -51,7 +51,7 @@ Messages messages;
 		}else if(filter.getStatus() != 0 && filter.getStartDate() != null && filter.getEndDate() != null) {
 			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDatesAndStatus(filter.getStartDate(),  filter.getEndDate(), filter.getStatus()), HttpStatus.OK);
 		} else if(filter.getStatus() != 0) {
-			return new ResponseEntity<>(this.orderRepository.findByStatus(filter.getStatus()), HttpStatus.OK);
+			return new ResponseEntity<>(this.orderRepository.findByStatusId(filter.getStatus()), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(this.orderRepository.findBetweenTwoDates(filter.getStartDate(),  filter.getEndDate()), HttpStatus.OK);
 		}				

@@ -49,17 +49,29 @@ public class Order implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Address address;
+    @Column( name = "cep" )
+    private String cep;
+    
+    @Column( name = "address" )
+    private String address;
+    
+    @Column( name = "additional_address" )
+    private String additionalAddress;
+    
+    @Column( name = "city", length = 100 )
+    private String city;
+    
+    @Column( name = "neighborhood", length = 100 )
+    private String neighborhood;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Status status;
     
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment", updatable = false)
-    private Payment payment;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
+    private List<Payment> payment;
     
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private List<OrderItem> orderItemList;
 
@@ -87,12 +99,44 @@ public class Order implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getAdditionalAddress() {
+		return additionalAddress;
+	}
+
+	public void setAdditionalAddress(String additionalAddress) {
+		this.additionalAddress = additionalAddress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
 	}
 
 	public User getUser() {
@@ -111,13 +155,13 @@ public class Order implements Serializable{
 		this.orderItemList = orderItemList;
 	}
 
-	public Payment getPayment() {
+	public List<Payment> getPayment() {
 		return payment;
 	}
 
-	public void setPayment(Payment payment) {
+	public void setPayment(List<Payment> payment) {
 		this.payment = payment;
-	}	
+	}
 
 	public Status getStatus() {
 		return status;

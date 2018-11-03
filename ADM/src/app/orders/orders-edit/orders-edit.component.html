@@ -23,13 +23,11 @@
               <label class="col-form-label">City</label>
               <input type="text" class="form-control" formControlName="city">
               <label class="col-form-label">Neighborhood</label>
-              <input type="text" class="form-control" formControlName="neightborhood">
+              <input type="text" class="form-control" formControlName="neighborhood">
             </div>
             <div class="col-md-2">
               <label class="col-form-label">DATE</label>
               <input type="text" class="form-control" formControlName="date">
-              <label class="col-form-label">Payment Form</label>
-              <input type="text" class="form-control" formControlName="formPayment">
             </div>
             <div class="col-md-2" formGroupName="user">
                 <label class="col-form-label">Id</label>
@@ -39,7 +37,7 @@
                 <label class="col-form-label">E-mail</label>
                 <input type="text" class="form-control" formControlName="email">
                 <label class="col-form-label">Cellphone</label>
-                <input type="text" class="form-control" formControlName="cellphone">
+                <input type="text" class="form-control" formControlName="cellPhone">
             </div>
             <div class="col-md-6">
               <table class="table table-responsive-sm table-bordered table-striped table-sm">
@@ -63,9 +61,9 @@
                 </tbody>
               </table>
               
-              <div class="col-md-12 total-price">
+              <div class="col-md-12 total-price" formGroupName="status">
                 <label class="col-form-label">Status</label>
-                <select class="form-control col-md-3 select-status" formControlName="status">
+                <select class="form-control col-md-3 select-status" formControlName="id">
                   <option value="1">Required</option>
                   <option value="2">Finalized</option>
                   <option value="3">Canceled</option>
