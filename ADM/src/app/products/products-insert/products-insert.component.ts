@@ -63,7 +63,14 @@ export class ProductsInsertComponent implements OnInit {
         //if comes here, the file was uploaded
 
         //call function responsable for saving the data on the bd
-        finalize(() => this.insertProduct(request) )
+        finalize(() => {
+            const ref = this.storage.ref('products/'+request.photo);            
+            ref.getDownloadURL().subscribe((res) => {
+              request.photo = res;
+              this.insertProduct(request);
+            });
+          }
+        )
      )
     .subscribe();
   }

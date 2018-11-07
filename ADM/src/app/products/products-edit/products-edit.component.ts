@@ -25,10 +25,10 @@ export class ProductsEditComponent implements OnInit {
   //  firebase
   uploadPercent: Observable<number>;
 
-  //  productsproduct image
+  //  current product image
   productUrl: Observable<string | null>;
 
-  constructor(  formBuilder: FormBuilder,
+  constructor(  private formBuilder: FormBuilder,
                 private storage: AngularFireStorage,
                 private _categoryService: CategoryService,
                 private productService: ProductService,
@@ -53,8 +53,7 @@ export class ProductsEditComponent implements OnInit {
           this.router.navigate(['/products']);
       }else{
           this.productRequest.patchValue(data.body);
-          const ref = this.storage.ref('products/'+this.productRequest.controls['photo'].value);
-          this.productUrl = ref.getDownloadURL();
+          this.productUrl = this.productRequest.controls['photo'].value;
       }
     });
 
@@ -91,8 +90,14 @@ export class ProductsEditComponent implements OnInit {
         //if comes here, the file was uploaded
 
         //call function responsable for saving the data on the bd
-        finalize(() => this.updateProduct(request) )
-     )
+        finalize(() => {
+          const ref = this.storage.ref('products/'+request.photo);            
+            ref.getDownloadURL().subscribe((res) => {
+              request.photo = res;
+              this.updateProduct(request);
+            });
+        }
+     ))
     .subscribe()
   }
 

@@ -53,15 +53,6 @@ export class OrdersEditComponent implements OnInit {
           this.orderRequest.controls.date.setValue(
             moment(this.orderRequest.controls.date.value).format("YYYY-MM-DD")
           );
-
-          this.orderRequest.controls.orderItemList.value.map((item) => {
-            const photo = this.storage.ref('products/'+item.product.photo.toString());
-            photo.getDownloadURL().subscribe((res) => {
-              item.product.photo = res;
-            });
-          });
-          // const ref = this.storage.ref('products/'+this.orderRequest.controls['photo'].value);
-          // this.productUrl = ref.getDownloadURL();
       }
     });
   }

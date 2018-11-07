@@ -82,7 +82,9 @@
                   <div class="form-group row">
                       <label class="col-md-1 col-form-label">Current Image</label>
                       <div class="col-md-2">
-                          <img [src]="productUrl | async" class="product-image" title="" alt="" />
+                          <img 
+                                *ngIf="productUrl != undefined"
+                                [src]="productUrl" class="product-image" title="" alt="" />
                       </div>
                   </div>
   

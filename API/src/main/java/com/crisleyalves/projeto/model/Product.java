@@ -25,13 +25,13 @@ public class Product implements Serializable{
 	@Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "text" )
     private String description;
 
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "text")
     private String photo;
     
     @Column(name = "stock")
